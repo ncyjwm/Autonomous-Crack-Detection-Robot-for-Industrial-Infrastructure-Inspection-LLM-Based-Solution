@@ -1,7 +1,7 @@
 # Autonomous Crack Detection Robot with LLM Reasoning
 
 > **TTTC3413 — Robot Applications**  
-> Universiti Kebangsaan Malaysia — Fakulti Teknologi & Sains Maklumat  
+> Universiti Kebangsaan Malaysia - Fakulti Teknologi & Sains Maklumat  
 > **Topic:** Autonomous Crack Detection Robot for Industrial Infrastructure Inspection
 
 ---
@@ -9,23 +9,22 @@
 
 This project extends a YOLOv8-based autonomous crack detection robot into a fully intelligent inspection assistant by integrating Google Gemini, a Large Language Model (LLM), as a reasoning and decision-making layer.
 
-Built on **TurtleBot3 Waffle Pi**, **ROS 1 Noetic**, and **Gazebo**, the system navigates autonomously within simulated industrial environments, detects pavement cracks in real time, classifies their severity using AI reasoning, and responds to natural language inspection queries, all without disrupting live robot operation.
+Built on **TurtleBot3 Waffle Pi** **ROS 1 Noetic** and **Gazebo** the system navigates autonomously within simulated industrial environments detects pavement cracks in real time classifies their severity using AI reasoning and responds to natural language inspection queries all without disrupting live robot operation.
 
-The result is a shift from a passive detection tool to an **intelligent inspection assistant** capable of contextual understanding, structured reporting, and human-robot interaction.
+The result is a shift from a passive detection tool to an **intelligent inspection assistant** capable of contextual understanding structured reporting and human-robot interaction.
 
 ---
 
 ## Features
 
 - **Real-time crack detection** using YOLOv8 with bounding box visualisation and confidence scores
-- **LLM-powered severity classification** — MINOR, MODERATE, or SEVERE — via the Google Gemini API
-- **Natural language command interpretation** for robot motion control (forward, backward, left, right, stop)
+- **LLM-powered severity classification** - MINOR MODERATE or SEVERE - via the Google Gemini API
+- **Natural language command interpretation** for robot motion control (forward backward left right stop)
 - **Autonomous robot halting** upon crack detection for focused inspection
 - **Structured inspection output** published over ROS topics for downstream consumption
-- **Seamless ROS integration** — perception, reasoning, and control operate concurrently without pipeline bottlenecks
+- **Seamless ROS integration** - perception reasoning and control operate concurrently without pipeline bottlenecks
 
 ---
-
 
 ## Prerequisites
 
@@ -43,7 +42,6 @@ The result is a shift from a passive detection tool to an **intelligent inspecti
 ---
 
 ## Workspace Structure
-
 ```
 turtle_crack_ws2/
 ├── build/                        # CMake build artifacts (auto-generated)
@@ -67,7 +65,6 @@ turtle_crack_ws2/
 │   └── CMakeLists.txt
 └── .catkin_workspace              # Catkin workspace marker
 ```
-
 ---
 
 ## Installation
@@ -126,7 +123,7 @@ source ~/.bashrc
 
 ### Gemini API Key
 
-Obtain a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey) and export it as an environment variable:
+Obtain a free API key from Google AI Studio and export it as an environment variable:
 
 ```bash
 export GEMINI_API_KEY="your_api_key_here"
@@ -155,34 +152,34 @@ model = YOLO("/path/to/turtle_crack_ws2/src/crack_detection/models/best.pt")
 
 Open separate terminals for each component:
 
-**Terminal 1 — Gazebo Simulation**
+**Terminal 1 - Gazebo Simulation**
 
 ```bash
 source ~/turtle_crack_ws2/devel/setup.bash
 roslaunch turtlebot3_gazebo turtlebot3_world.launch
 ```
 
-**Terminal 2 — YOLO Crack Detector**
+**Terminal 2 - YOLO Crack Detector**
 
 ```bash
 source ~/turtle_crack_ws2/devel/setup.bash
 rosrun crack_detection yolo_detector.py
 ```
 
-**Terminal 3 — Gemini LLM Decision Node**
+**Terminal 3 - Gemini LLM Decision Node**
 
 ```bash
 source ~/turtle_crack_ws2/devel/setup.bash
 rosrun crack_detection llm_decision_node.py
 ```
 
-**Terminal 4 — Image Viewer (optional)**
+**Terminal 4 - Image Viewer (optional)**
 
 ```bash
 rosrun rqt_image_view rqt_image_view /camera/yolo_image
 ```
 
-### Alternatively, Use the Launch File
+### Alternatively Use the Launch File
 
 ```bash
 source ~/turtle_crack_ws2/devel/setup.bash
@@ -201,7 +198,7 @@ Issue natural language movement commands through the LLM interface:
 | `right` | Turn robot right |
 | `stop` | Halt robot immediately |
 
-The robot will **automatically stop** when a crack is detected, regardless of the active command.
+The robot will automatically stop when a crack is detected regardless of the active command.
 
 ---
 
@@ -221,11 +218,11 @@ The robot will **automatically stop** when a crack is detected, regardless of th
 
 ### `yolo_detector.py`
 
-The primary perception node. Subscribes to the live camera feed (`/camera/rgb/image_raw`) and runs YOLOv8 inference on each frame. Detected cracks are annotated with bounding boxes and confidence scores, then published to `/camera/yolo_image` for visualisation in `rqt_image_view`. When a crack is detected, the cropped region is extracted and published to `/crack_detection/crack_image` for LLM analysis.
+The primary perception node. Subscribes to the live camera feed (`/camera/rgb/image_raw`) and runs YOLOv8 inference on each frame. Detected cracks are annotated with bounding boxes and confidence scores then published to `/camera/yolo_image` for visualisation in `rqt_image_view`. When a crack is detected the cropped region is extracted and published to `/crack_detection/crack_image` for LLM analysis.
 
 ### `llm_decision_node.py`
 
-The intelligent reasoning node. Subscribes to `/crack_detection/crack_image` and forwards each detected crack image to the Google Gemini API via the `google-generativeai` library. Gemini analyses the visual content and returns a semantic severity classification (MINOR, MODERATE, or SEVERE). The node then:
+The intelligent reasoning node. Subscribes to `/crack_detection/crack_image` and forwards each detected crack image to the Google Gemini API via the `google-generativeai` library. Gemini analyses the visual content and returns a semantic severity classification (MINOR MODERATE or SEVERE). The node then:
 
 1. Publishes the severity result to `/crack_detection/severity`
 2. Issues a stop command to `/cmd_vel` to halt the robot at the inspection site
@@ -239,28 +236,24 @@ The intelligent reasoning node. Subscribes to `/crack_detection/crack_image` and
 | Kavi Priya A/P Balasupramaniam | A202660 |
 
 **Lecturer:** Dr. Anahita Ghazvini  
-**Course:** TTTC3413 — Robot Applications  
+**Course:** TTTC3413 - Robot Applications  
 **Institution:** Universiti Kebangsaan Malaysia (UKM)
 
 ---
 
 ## References
 
-- Ai, D., Jiang, G., Kei, L. S. & Li, C. (2018). Automatic pixel-level pavement crack detection using information of multi-scale neighborhoods. *IEEE Access*, 6, 24452–24463.
-- Cuevas, D. & Manrique, R. (2025). Evaluating LLM-Based Autonomous Systems. *ICAI 2025*.
-- Ibrahimi, I. (2024). Integrating Real-Time Object Detection with LiDAR Data for Enhanced Robotic Autonomous Navigation. *Politecnico di Torino*.
-- Kim, Y., Kim, D., Choi, J., Park, J., Oh, N. & Park, D. (2024). A survey on integration of large language models with intelligent robots. *Intelligent Service Robotics*, 17(5), 1091–1107.
-- Lee, D., Nie, G.-Y. & Han, K. (2023). Vision-based inspection of prefabricated components using camera poses. *Journal of Building Engineering*, 64, 105710.
-- Marian, M. et al. (2020). A ROS-based control application for a robotic platform using the Gazebo 3D simulator. *ICCC 2020*.
-- Sun, C., Huang, S. & Pompili, D. (2025). LLM-Based Multi-Agent Decision-Making. *IEEE Robotics and Automation Letters*.
-- Team, G. et al. (2023). Gemini: a family of highly capable multimodal models. *arXiv:2312.11805*.
+- Ai D. Jiang G. Kei L. S. & Li C. (2018). Automatic pixel-level pavement crack detection using information of multi-scale neighborhoods. *IEEE Access* 6 24452-24463.
+- Cuevas D. & Manrique R. (2025). Evaluating LLM-Based Autonomous Systems. *ICAI 2025*.
+- Ibrahimi I. (2024). Integrating Real-Time Object Detection with LiDAR Data for Enhanced Robotic Autonomous Navigation. *Politecnico di Torino*.
+- Kim Y. Kim D. Choi J. Park J. Oh N. & Park D. (2024). A survey on integration of large language models with intelligent robots. *Intelligent Service Robotics* 17(5) 1091-1107.
+- Lee D. Nie G.-Y. & Han K. (2023). Vision-based inspection of prefabricated components using camera poses. *Journal of Building Engineering* 64 105710.
+- Marian M. et al. (2020). A ROS-based control application for a robotic platform using the Gazebo 3D simulator. *ICCC 2020*.
+- Sun C. Huang S. & Pompili D. (2025). LLM-Based Multi-Agent Decision-Making. *IEEE Robotics and Automation Letters*.
+- Team G. et al. (2023). Gemini: a family of highly capable multimodal models. *arXiv:2312.11805*.
 
 ---
 
-<div align="center">
+Fakulti Teknologi & Sains Maklumat - Universiti Kebangsaan Malaysia
 
-**Fakulti Teknologi & Sains Maklumat — Universiti Kebangsaan Malaysia**
-
-*Built with ROS Noetic · YOLOv8 · Google Gemini · Gazebo · TurtleBot3*
-
-</div>
+Built with ROS Noetic · YOLOv8 · Google Gemini · Gazebo · TurtleBot3
