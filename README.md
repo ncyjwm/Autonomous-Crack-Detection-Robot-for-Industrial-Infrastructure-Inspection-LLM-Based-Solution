@@ -1,0 +1,2 @@
+# Autonomous-Crack-Detection-Robot-for-Industrial-Infrastructure-Inspection-LLM-Based-Solution
+Enhanced an autonomous crack detection robot by integrating a Gemini-based LLM reasoning module. Developed a natural language interface for real-time robotic control and decision-making, allowing the TurtleBot3 to interpret complex inspection commands and generate context-aware reports via a multi-agent ROS 1 and Python framework.
